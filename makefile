@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -shared
 OUTPUT_DIR = build
 OUTPUT = $(OUTPUT_DIR)/BCH.dll
-SRC = BCH.c
+SRC = BCH.c Utils.c
 HEADERS = BCH.h
 
 all: $(OUTPUT)
