@@ -353,7 +353,8 @@ uint8_t* BCH_Decode(uint8_t const*const codeword)
 		 *          exit program here indicating the presence of errors.
 		 */
 		 /* convert syndrome from polynomial form to index form  */
-		syndromes[syndromeIndex] = antiLogTable[val];
+
+		if(val < n) syndromes[syndromeIndex] = antiLogTable[val];
 	}
 
 	if (syndromeError > 0) {	/* if there are errors, try to correct them */
@@ -507,7 +508,8 @@ uint8_t* BCH_Decode(uint8_t const*const codeword)
 		}
 		else	/* elp has degree >t hence cannot solve */
 		{
-			free(recd); recd = 0;
+			//free(recd); recd = 0;
+			//Do nothing -> returns noisy code as is
 		}
 
 		for (int i = 0; i < t2+2; i++) {
@@ -522,7 +524,7 @@ uint8_t* BCH_Decode(uint8_t const*const codeword)
 
 	free(syndromes);
 
-	if (recd == 0) return 0;
+	//if (recd == 0) return 0;
 
 	uint8_t const KBytes = ceil(k / 8.0);
 	uint8_t* Word = malloc(KBytes);
